@@ -14,9 +14,14 @@ def main(conf):
 
     # data
     img_path = conf.input
+    img_path = '/home/shantanu.singh/ME-GraphAU/data/BP4D/img/F001/T1/2440.jpg'
 
 
     net = MEFARG(num_main_classes=conf.num_main_classes, num_sub_classes=conf.num_sub_classes, backbone=conf.arc, neighbor_num=conf.neighbor_num, metric=conf.metric)
+
+    weights = torch.load('checkpoints/OpenGprahAU-SwinB_first_stage.pth')['state_dict']
+    weights = dict([(k.replace("module.", ""), v) for k, v in weights.items()])
+    net.load_state_dict(weights)
 
     # resume
     if conf.resume != '':

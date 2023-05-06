@@ -145,7 +145,7 @@ class MEFARG(nn.Module):
             elif backbone == 'swin_transformer_small':
                 self.backbone = swin_transformer_small()
             else:
-                self.backbone = swin_transformer_base()
+                self.backbone = swin_transformer_base(pretrained=False)
             self.in_channels = self.backbone.num_features
             self.out_channels = self.in_channels // 2
             self.backbone.head = None

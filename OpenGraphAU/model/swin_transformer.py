@@ -633,7 +633,8 @@ def swin_transformer_base(pretrained=True, **kwargs):
     model = SwinTransformer(embed_dim=128, depths=[ 2, 2, 18, 2 ], num_heads=[ 4, 8, 16, 32 ],
                  window_size=7,drop_path_rate=0.5, **kwargs)
     if pretrained:
-        model.load_state_dict(torch.load(os.path.join(models_dir, model_name['swin_transformer_base']))['model'])
+        state_dict = torch.load(os.path.join(models_dir, model_name['swin_transformer_base']))["model"]
+        model.load_state_dict(state_dict)
     return model
 
 

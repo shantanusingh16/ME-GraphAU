@@ -92,7 +92,7 @@ def calc_f1_score(statistics_list):
     return mean_f1_score, f1_score_list
 
 
-def draw_text(path, words, probs):
+def draw_text(path, words, probs, image=None):
     import cv2
     AU_names = ['Inner brow raiser',
         'Outer brow raiser',
@@ -138,7 +138,10 @@ def draw_text(path, words, probs):
     AU_ids = ['1', '2', '4', '5', '6', '7', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '22',
            '23', '24', '25', '26', '27', '32', '38', '39', 'L1', 'R1', 'L2', 'R2', 'L4', 'R4', 'L6', 'R6', 'L10', 'R10', 'L12', 'R12', 'L14', 'R14']
     # from PIL import Image, ImageDraw, ImageFont
-    img = cv2.imread(path)
+    if image is None:
+        img = cv2.imread(path)
+    else:
+        img = image
     pos_y = img.shape[0] // 40
     pos_x  = img.shape[1] + img.shape[1] // 100
     pos_x_ =  img.shape[1]  * 3 // 2 - img.shape[1] // 100

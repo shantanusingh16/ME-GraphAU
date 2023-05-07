@@ -47,6 +47,10 @@ def main(conf, vid_dir, keypts_dir, output_dir):
             if os.path.exists(output_path):
                 continue
 
+            keypts_path = keypts_path.encode('unicode_escape').decode().replace('\\u','#U')
+            # keypts_path = "".join(["#U{:04x}".format(ord(c)) if c in "'\"" or c == "\\" or c == "/" else c for c in keypts_path])
+
+
             skels = np.array(h5py.File(keypts_path)[basename])
             vid = cv2.VideoCapture(vid_path)
 
@@ -133,9 +137,9 @@ if __name__=="__main__":
                   os.path.join(args.keypts_dir, name), 
                   os.path.join(args.output_dir, name)) for name in vid_names]
     
-    # with Pool(processes=args.jobs) as pool:
-    #     pool.starmap(main, pool_args)
+    with Pool(processes=args.jobs) as pool:
+        pool.starmap(main, pool_args)
 
-    for arg in pool_args:
-        main(*arg)
+    #for arg in pool_args:
+    #    main(*arg)
 
